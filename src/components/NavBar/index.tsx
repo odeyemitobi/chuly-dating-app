@@ -11,24 +11,31 @@ export default function Navbar(): React.ReactNode {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-11">
             <div className="pr-24">
-              <div className="flex items-center lg:space-x-8 space-x-3">
-                <Image
-                  src={"/chuly-logo.svg"}
-                  alt="Logo"
-                  width={85}
-                  height={85}
-                  className="hover:scale-110 transition-transform duration-300 py-3 md:block hidden shadow-[5px_5px_5px_-3px_rgba(0,0,0,0.2)]"
-                />
-                <Image
-                  src={"/chuly-logo.svg"}
-                  alt="Logo"
-                  width={50}
-                  height={50}
-                  className="hover:scale-110 transition-transform duration-300 py-3 md:hidden block"
-                />
-                <span className="lg:text-3xl pr-8 text-xl font-bold font-jaini-purva">
-                  Chuly
-                </span>
+              <div className="">
+                <div className="lg:flex hidden items-center space-x-8 shadow-[5px_5px_5px_-3px_rgba(0,0,0,0.2)]">
+                  <Image
+                    src={"/chuly-logo.svg"}
+                    alt="Logo"
+                    width={85}
+                    height={85}
+                    className="hover:scale-110 transition-transform duration-300 py-3"
+                  />
+                  <span className="lg:text-3xl pr-8 text-xl font-bold font-jaini-purva">
+                    Chuly
+                  </span>
+                </div>
+                <div className="lg:hidden flex items-center space-x-4">
+                  <Image
+                    src={"/chuly-logo.svg"}
+                    alt="Logo"
+                    width={50}
+                    height={50}
+                    className="hover:scale-110 transition-transform duration-300 py-3"
+                  />
+                  <span className="lg:text-3xl pr-8 text-xl font-bold font-jaini-purva">
+                    Chuly
+                  </span>
+                </div>
               </div>
             </div>
 

@@ -1,12 +1,19 @@
 "use client";
+
 import React from "react";
-import Image from "next/image";
+import { MdMenu } from "react-icons/md";
+import ProfileWelcome from "@/components/ProfileWelcome";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <div className="text-red-600">
-        Hello
+    <div className="px-4 sm:px-6 lg:px-10 xxl:pl-12 xxl:pr-36">
+      <div className="lg:pt-24 pt-10 flex flex-col lg:flex-row">
+        <div className="block lg:hidden self-start mb-4">
+          <MdMenu size={30} />
+        </div>
+        <div className="flex-grow lg:ml-24">
+          <ProfileWelcome />
+        </div>
       </div>
     </div>
   );

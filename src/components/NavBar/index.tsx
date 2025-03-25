@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Navbar(): React.ReactNode {
   return (
-    <nav className="bg-white shadow-md fixed w-full z-50 top-0">
+    <nav className="bg-[#F6F6F6] shadow-md fixed w-full z-50 top-0">
       <div className="px-4 sm:px-6 lg:px-10 xxl:pl-12 xxl:pr-36">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-11">

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -6,11 +7,16 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 export default function ProfileWelcome(): React.ReactElement {
   const [relationshipType, setRelationshipType] = useState("Dating");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState(() => 
-    localStorage.getItem('profileImage') || "/temiloluwa.svg"
-  );
+  const [profileImage, setProfileImage] = useState("/temiloluwa.svg");
 
   const relationshipTypes = ["Dating", "Single"];
+
+  useEffect(() => {
+    const storedProfileImage = localStorage.getItem("profileImage");
+    if (storedProfileImage) {
+      setProfileImage(storedProfileImage);
+    }
+  }, []);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -23,16 +29,16 @@ export default function ProfileWelcome(): React.ReactElement {
 
   useEffect(() => {
     const handleProfileImageUpdate = () => {
-      const storedProfileImage = localStorage.getItem('profileImage');
+      const storedProfileImage = localStorage.getItem("profileImage");
       if (storedProfileImage) {
         setProfileImage(storedProfileImage);
       }
     };
 
-    window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
+    window.addEventListener("profileImageUpdated", handleProfileImageUpdate);
 
     return () => {
-      window.removeEventListener('profileImageUpdated', handleProfileImageUpdate);
+      window.removeEventListener("profileImageUpdated", handleProfileImageUpdate);
     };
   }, []);
 

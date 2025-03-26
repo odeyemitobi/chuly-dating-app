@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { FaEdit } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
@@ -8,14 +8,22 @@ import { useRouter } from "next/navigation";
 
 export default function ProfileHeader() {
   const router = useRouter();
-  const [coverImage, setCoverImage] = useState(() => 
-    localStorage.getItem('coverImage') || "/palm-cover.svg"
-  );
-  const [profileImage, setProfileImage] = useState(() => 
-    localStorage.getItem('profileImage') || "/temi-full.svg"
-  );
+  const [coverImage, setCoverImage] = useState("/palm-cover.svg"); 
+  const [profileImage, setProfileImage] = useState("/temi-full.svg");
   const coverInputRef = useRef<HTMLInputElement>(null);
   const profileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const storedCoverImage = localStorage.getItem("coverImage");
+    if (storedCoverImage) {
+      setCoverImage(storedCoverImage);
+    }
+
+    const storedProfileImage = localStorage.getItem("profileImage");
+    if (storedProfileImage) {
+      setProfileImage(storedProfileImage);
+    }
+  }, []);
 
   const handleCoverImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,7 +32,7 @@ export default function ProfileHeader() {
       reader.onloadend = () => {
         const imageDataUrl = reader.result as string;
         setCoverImage(imageDataUrl);
-        localStorage.setItem('coverImage', imageDataUrl);
+        localStorage.setItem("coverImage", imageDataUrl);
       };
       reader.readAsDataURL(file);
     }
@@ -37,9 +45,8 @@ export default function ProfileHeader() {
       reader.onloadend = () => {
         const imageDataUrl = reader.result as string;
         setProfileImage(imageDataUrl);
-        localStorage.setItem('profileImage', imageDataUrl);
-        
-        window.dispatchEvent(new Event('profileImageUpdated'));
+        localStorage.setItem("profileImage", imageDataUrl);
+        window.dispatchEvent(new Event("profileImageUpdated"));
       };
       reader.readAsDataURL(file);
     }
@@ -52,28 +59,31 @@ export default function ProfileHeader() {
   return (
     <div className="relative w-full">
       <div className="relative w-full h-[250px]">
-        <Image 
-          src={coverImage} 
-          alt="Cover" 
-          layout="fill" 
-          objectFit="cover" 
-          className="w-full h-full rounded-xl" 
+        <Image
+          src={coverImage}
+          alt="Cover"
+          layout="fill"
+          objectFit="cover"
+          className="w-full h-full rounded-xl"
         />
-        <input 
-          type="file" 
-          ref={coverInputRef} 
-          className="hidden" 
+        <input
+          type="file"
+          ref={coverInputRef}
+          className="hidden"
           accept="image/*"
           onChange={handleCoverImageUpload}
           aria-label="Upload cover image"
         />
-        <div 
+        <div
           className="absolute top-4 right-4 cursor-pointer text-white bg-black bg-opacity-[60%] px-5 py-2 text-sm rounded-lg"
           onClick={() => coverInputRef.current?.click()}
         >
           Update Cover
         </div>
-        <div onClick={BackClick} className="absolute top-4 cursor-pointer left-8 text-white bg-black bg-opacity-[60%] px-5 py-2 text-sm rounded-lg">
+        <div
+          onClick={BackClick}
+          className="absolute top-4 cursor-pointer left-8 text-white bg-black bg-opacity-[60%] px-5 py-2 text-sm rounded-lg"
+        >
           Back
         </div>
       </div>
@@ -82,22 +92,22 @@ export default function ProfileHeader() {
       <div className="hidden lg:flex absolute -bottom-2 left-0 right-0 items-end px-4 sm:px-6 lg:pl-10 lg:pr-3 -mb-12">
         <div className="relative">
           <div className="w-[200px] h-[200px] rounded-full overflow-hidden border-4 border-white shadow-lg">
-            <Image 
-              src={profileImage} 
-              alt="Profile" 
-              layout="fill" 
+            <Image
+              src={profileImage}
+              alt="Profile"
+              layout="fill"
               objectFit="cover"
-              className="rounded-xl" 
+              className="rounded-xl"
             />
-            <input 
-              type="file" 
-              ref={profileInputRef} 
-              className="hidden" 
+            <input
+              type="file"
+              ref={profileInputRef}
+              className="hidden"
               accept="image/*"
               onChange={handleProfileImageUpload}
               aria-label="Upload profile image"
             />
-            <div 
+            <div
               className="absolute -bottom-6 -right-6 bg-blue-500 text-white rounded-full p-2 m-2 cursor-pointer"
               onClick={() => profileInputRef.current?.click()}
             >
@@ -126,21 +136,21 @@ export default function ProfileHeader() {
       <div className="lg:hidden px-4 -mt-16">
         <div className="flex flex-col items-center">
           <div className="relative w-[150px] h-[150px] rounded-xl overflow-hidden shadow-lg mb-4">
-            <Image 
-              src={profileImage} 
-              alt="Profile" 
-              layout="fill" 
-              objectFit="cover" 
+            <Image
+              src={profileImage}
+              alt="Profile"
+              layout="fill"
+              objectFit="cover"
             />
-            <input 
-              type="file" 
-              ref={profileInputRef} 
-              className="hidden" 
+            <input
+              type="file"
+              ref={profileInputRef}
+              className="hidden"
               accept="image/*"
               onChange={handleProfileImageUpload}
               aria-label="Upload profile image"
             />
-            <div 
+            <div
               className="absolute bottom-14 right-14 bg-blue-500 text-white rounded-full p-2 m-2 cursor-pointer"
               onClick={() => profileInputRef.current?.click()}
             >

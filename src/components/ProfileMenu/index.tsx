@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+"use client";
+
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -19,12 +21,10 @@ const ProfileMenu = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [activeItem, setActiveItem] = useState("Dashboard");
-  const [profileImage, setProfileImage] = useState(() => 
-    localStorage.getItem('profileImage') || "/temiloluwa.svg"
-  );
+  const [profileImage, setProfileImage] = useState("/temiloluwa.svg");
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const menuItems = [
+  const menuItems = useMemo(() => [
     { icon: <TbGridDots />, text: "Dashboard", route: "/" },
     { icon: <LuCircleUserRound />, text: "My Profile", route: "/profile" },
     { icon: <GoHeart />, text: "Favorites", route: "/favorites" },
@@ -33,27 +33,34 @@ const ProfileMenu = () => {
     { icon: <MdCloudQueue />, text: "Interested in me", route: "/interested" },
     { icon: <MdSettings />, text: "Settings", route: "/settings" },
     { icon: <MdLogout />, text: "Logout", route: "/logout" },
-  ];
+  ], []);
 
   useEffect(() => {
-    const activeMenuItem = menuItems.find(item => item.route === pathname);
+    const storedImage = localStorage.getItem("profileImage");
+    if (storedImage) {
+      setProfileImage(storedImage);
+    }
+  }, []);
+
+  useEffect(() => {
+    const activeMenuItem = menuItems.find((item) => item.route === pathname);
     if (activeMenuItem) {
       setActiveItem(activeMenuItem.text);
     }
-  }, [pathname]);
+  }, [pathname, menuItems]);
 
   useEffect(() => {
     const handleProfileImageUpdate = () => {
-      const storedProfileImage = localStorage.getItem('profileImage');
+      const storedProfileImage = localStorage.getItem("profileImage");
       if (storedProfileImage) {
         setProfileImage(storedProfileImage);
       }
     };
 
-    window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
+    window.addEventListener("profileImageUpdated", handleProfileImageUpdate);
 
     return () => {
-      window.removeEventListener('profileImageUpdated', handleProfileImageUpdate);
+      window.removeEventListener("profileImageUpdated", handleProfileImageUpdate);
     };
   }, []);
 
@@ -61,7 +68,7 @@ const ProfileMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleMenuItemClick = (item: { text: string, route: string }) => {
+  const handleMenuItemClick = (item: { text: string; route: string }) => {
     setActiveItem(item.text);
     setIsOpen(false);
     router.push(item.route);

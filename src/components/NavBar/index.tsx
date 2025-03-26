@@ -7,9 +7,14 @@ import Image from "next/image";
 
 export default function Navbar(): React.ReactNode {
   const router = useRouter();
-  const [profileImage, setProfileImage] = useState(() => 
-    localStorage.getItem('profileImage') || "/temiloluwa.svg"
-  );
+  const [profileImage, setProfileImage] = useState("/temiloluwa.svg");
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem("profileImage");
+    if (storedImage) {
+      setProfileImage(storedImage);
+    }
+  }, []);
 
   const handleProfileClick = () => {
     router.push("/profile");
@@ -17,16 +22,16 @@ export default function Navbar(): React.ReactNode {
 
   useEffect(() => {
     const handleProfileImageUpdate = () => {
-      const storedProfileImage = localStorage.getItem('profileImage');
+      const storedProfileImage = localStorage.getItem("profileImage");
       if (storedProfileImage) {
         setProfileImage(storedProfileImage);
       }
     };
 
-    window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
+    window.addEventListener("profileImageUpdated", handleProfileImageUpdate);
 
     return () => {
-      window.removeEventListener('profileImageUpdated', handleProfileImageUpdate);
+      window.removeEventListener("profileImageUpdated", handleProfileImageUpdate);
     };
   }, []);
 

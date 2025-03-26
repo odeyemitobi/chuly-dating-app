@@ -35,7 +35,6 @@ const ProfileMenu = () => {
     { icon: <MdLogout />, text: "Logout", route: "/logout" },
   ];
 
-  // Update active item based on current pathname
   useEffect(() => {
     const activeMenuItem = menuItems.find(item => item.route === pathname);
     if (activeMenuItem) {
@@ -51,7 +50,6 @@ const ProfileMenu = () => {
       }
     };
 
-    // Listen for custom event from other components
     window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
 
     return () => {

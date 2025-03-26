@@ -4,8 +4,10 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { FaEdit } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 export default function ProfileHeader() {
+  const router = useRouter();
   const [coverImage, setCoverImage] = useState(() => 
     localStorage.getItem('coverImage') || "/palm-cover.svg"
   );
@@ -37,11 +39,14 @@ export default function ProfileHeader() {
         setProfileImage(imageDataUrl);
         localStorage.setItem('profileImage', imageDataUrl);
         
-        // Dispatch a custom event to notify other components
         window.dispatchEvent(new Event('profileImageUpdated'));
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const BackClick = () => {
+    router.push("/");
   };
 
   return (
@@ -69,7 +74,7 @@ export default function ProfileHeader() {
         >
           Update Cover
         </div>
-        <div className="absolute top-4 cursor-pointer left-8 text-white bg-black bg-opacity-[60%] px-5 py-2 text-sm rounded-lg">
+        <div onClick={BackClick} className="absolute top-4 cursor-pointer left-8 text-white bg-black bg-opacity-[60%] px-5 py-2 text-sm rounded-lg">
           Back
         </div>
       </div>
@@ -82,7 +87,8 @@ export default function ProfileHeader() {
               src={profileImage} 
               alt="Profile" 
               layout="fill" 
-              objectFit="cover" 
+              objectFit="cover"
+              className="rounded-xl" 
             />
             <input 
               type="file" 
@@ -120,7 +126,7 @@ export default function ProfileHeader() {
       {/* Mobile Profile Section */}
       <div className="lg:hidden px-4 -mt-16">
         <div className="flex flex-col items-center">
-          <div className="relative w-[150px] h-[150px] rounded-full overflow-hidden border-4 border-white shadow-lg mb-4">
+          <div className="relative w-[150px] h-[150px] rounded-xl overflow-hidden shadow-lg mb-4">
             <Image 
               src={profileImage} 
               alt="Profile" 
@@ -136,7 +142,7 @@ export default function ProfileHeader() {
               aria-label="Upload profile image"
             />
             <div 
-              className="absolute -bottom-4 -right-4 bg-blue-500 text-white rounded-full p-2 m-2 cursor-pointer"
+              className="absolute bottom-14 right-14 bg-blue-500 text-white rounded-full p-2 m-2 cursor-pointer"
               onClick={() => profileInputRef.current?.click()}
             >
               <FiPlus />

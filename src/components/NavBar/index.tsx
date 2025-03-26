@@ -23,7 +23,6 @@ export default function Navbar(): React.ReactNode {
       }
     };
 
-    // Listen for custom event from other components
     window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
 
     return () => {

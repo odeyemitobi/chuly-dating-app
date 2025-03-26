@@ -29,7 +29,6 @@ export default function ProfileWelcome(): React.ReactElement {
       }
     };
 
-    // Listen for custom event from other components
     window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
 
     return () => {

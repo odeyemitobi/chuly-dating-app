@@ -3,6 +3,7 @@
 import React from "react";
 import ProfileMenu from "@/components/ProfileMenu";
 import ProfileHeader from "@/components/Profile-components/ProfileHeader";
+import ProfilePhotoUpload from "@/components/Profile-components/ProfilePhotoUpload";
 
 export default function Profile() {
   return (
@@ -14,6 +15,9 @@ export default function Profile() {
         <div className="flex-grow lg:ml-24">
           <div>
             <ProfileHeader />
+          </div>
+          <div className="lg:mt-32 mt-5">
+            <ProfilePhotoUpload />
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import ProfileMenu from "@/components/ProfileMenu";
+import ProfileHeader from "@/components/Profile-components/ProfileHeader";
 
 export default function Profile() {
   return (
@@ -11,7 +12,9 @@ export default function Profile() {
           <ProfileMenu />
         </div>
         <div className="flex-grow lg:ml-24">
-          Profile page
+          <div>
+            <ProfileHeader />
+          </div>
         </div>
       </div>
     </div>

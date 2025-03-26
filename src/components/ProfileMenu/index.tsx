@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   MdMenu,
@@ -15,27 +16,38 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   const [activeItem, setActiveItem] = useState("Dashboard");
   const menuRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
-    { icon: <TbGridDots />, text: "Dashboard" },
-    { icon: <LuCircleUserRound />, text: "My Profile" },
-    { icon: <GoHeart />, text: "Favorites" },
-    { icon: <MdGroup />, text: "My Mutuals" },
-    { icon: <MdSubscriptions />, text: "My Subscribed" },
-    { icon: <MdCloudQueue />, text: "Interested in me" },
-    { icon: <MdSettings />, text: "Settings" },
-    { icon: <MdLogout />, text: "Logout" },
+    { icon: <TbGridDots />, text: "Dashboard", route: "/" },
+    { icon: <LuCircleUserRound />, text: "My Profile", route: "/profile" },
+    { icon: <GoHeart />, text: "Favorites", route: "/favorites" },
+    { icon: <MdGroup />, text: "My Mutuals", route: "/mutuals" },
+    { icon: <MdSubscriptions />, text: "My Subscribed", route: "/subscribed" },
+    { icon: <MdCloudQueue />, text: "Interested in me", route: "/interested" },
+    { icon: <MdSettings />, text: "Settings", route: "/settings" },
+    { icon: <MdLogout />, text: "Logout", route: "/logout" },
   ];
+
+  // Update active item based on current pathname
+  useEffect(() => {
+    const activeMenuItem = menuItems.find(item => item.route === pathname);
+    if (activeMenuItem) {
+      setActiveItem(activeMenuItem.text);
+    }
+  }, [pathname]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleMenuItemClick = (text: string) => {
-    setActiveItem(text);
+  const handleMenuItemClick = (item: { text: string, route: string }) => {
+    setActiveItem(item.text);
     setIsOpen(false);
+    router.push(item.route);
   };
 
   useEffect(() => {
@@ -94,7 +106,7 @@ const ProfileMenu = () => {
               <div
                 key={index}
                 className={getItemClasses(item.text)}
-                onClick={() => handleMenuItemClick(item.text)}
+                onClick={() => handleMenuItemClick(item)}
               >
                 <span className="mr-3 text-2xl">{item.icon}</span>
                 <span>{item.text}</span>
@@ -139,7 +151,7 @@ const ProfileMenu = () => {
                   <div
                     key={index}
                     className={getItemClasses(item.text)}
-                    onClick={() => handleMenuItemClick(item.text)}
+                    onClick={() => handleMenuItemClick(item)}
                   >
                     <span className="mr-3 text-xl">{item.icon}</span>
                     <span>{item.text}</span>

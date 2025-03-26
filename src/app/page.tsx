@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import ProfileWelcome from "@/components/ProfileWelcome";
-import DatingProfileGrid from "@/components/DatingProfileGrid";
+import ProfileWelcome from "@/components/Home-components/ProfileWelcome";
+import DatingProfileGrid from "@/components/Home-components/DatingProfileGrid";
 import ProfileMenu from "@/components/ProfileMenu";
 
 export default function Home() {

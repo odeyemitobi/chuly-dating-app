@@ -1,16 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaSearch, FaFilter } from "react-icons/fa";
 import Image from "next/image";
 
 export default function Navbar(): React.ReactNode {
   const router = useRouter();
+  const [profileImage, setProfileImage] = useState(() => 
+    localStorage.getItem('profileImage') || "/temiloluwa.svg"
+  );
 
   const handleProfileClick = () => {
     router.push("/profile");
   };
+
+  useEffect(() => {
+    const handleProfileImageUpdate = () => {
+      const storedProfileImage = localStorage.getItem('profileImage');
+      if (storedProfileImage) {
+        setProfileImage(storedProfileImage);
+      }
+    };
+
+    // Listen for custom event from other components
+    window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
+
+    return () => {
+      window.removeEventListener('profileImageUpdated', handleProfileImageUpdate);
+    };
+  }, []);
 
   return (
     <nav className="bg-[#F6F6F6] shadow-md fixed w-full z-50 top-0">
@@ -72,14 +91,16 @@ export default function Navbar(): React.ReactNode {
                 className="rounded-full hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <Image
-              src={"/temiloluwa.svg"}
-              alt="Profile"
-              width={50}
-              height={50}
-              className="rounded-full hover:scale-110 transition-transform duration-300 cursor-pointer"
-              onClick={handleProfileClick}
-            />
+            <div className="relative">
+              <Image
+                src={profileImage}
+                alt="Profile"
+                width={50}
+                height={50}
+                className="rounded-full w-14 h-14 hover:scale-110 transition-transform duration-300 cursor-pointer"
+                onClick={handleProfileClick}
+              />
+            </div>
           </div>
 
           <div className="md:hidden flex items-center space-x-4">
@@ -94,11 +115,11 @@ export default function Navbar(): React.ReactNode {
                 className="hover:scale-110 transition-transform duration-300"
               />
               <Image
-                src={"/temiloluwa.svg"}
+                src={profileImage}
                 alt="Profile"
                 width={35}
-                height={20}
-                className="rounded-full hover:scale-110 transition-transform duration-300 cursor-pointer"
+                height={35}
+                className="rounded-full w-9 h-9 hover:scale-110 transition-transform duration-300 cursor-pointer"
                 onClick={handleProfileClick}
               />
             </div>

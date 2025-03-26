@@ -19,6 +19,9 @@ const ProfileMenu = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [activeItem, setActiveItem] = useState("Dashboard");
+  const [profileImage, setProfileImage] = useState(() => 
+    localStorage.getItem('profileImage') || "/temiloluwa.svg"
+  );
   const menuRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
@@ -39,6 +42,22 @@ const ProfileMenu = () => {
       setActiveItem(activeMenuItem.text);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    const handleProfileImageUpdate = () => {
+      const storedProfileImage = localStorage.getItem('profileImage');
+      if (storedProfileImage) {
+        setProfileImage(storedProfileImage);
+      }
+    };
+
+    // Listen for custom event from other components
+    window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
+
+    return () => {
+      window.removeEventListener('profileImageUpdated', handleProfileImageUpdate);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -90,14 +109,14 @@ const ProfileMenu = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="p-4 border-b justify-center text-center items-center">
-              <div className="relative grid place-items-center mr-3">
+            <div className="p-4 justify-center text-center items-center">
+              <div className="relative grid place-items-center mr-3 mb-2">
                 <Image
-                  src={"/temiloluwa.svg"}
+                  src={profileImage}
                   alt="Profile"
                   width={120}
                   height={120}
-                  className="rounded-full "
+                  className="rounded-full w-[10rem] h-[10rem]"
                 />
               </div>
               <span className="font-semibold">Temiloluwa</span>
@@ -138,11 +157,11 @@ const ProfileMenu = () => {
                 <div className="items-center mb-4">
                   <div className="relative mr-4 mb-4">
                     <Image
-                      src={"/temiloluwa.svg"}
+                      src={profileImage}
                       alt="Profile"
                       width={120}
                       height={120}
-                      className="rounded-full"
+                      className="rounded-full w-[8rem] h-[8rem]"
                     />
                   </div>
                   <span className="font-semibold text-xl">Temiloluwa</span>

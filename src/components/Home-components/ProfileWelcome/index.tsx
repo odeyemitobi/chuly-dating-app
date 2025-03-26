@@ -1,11 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 export default function ProfileWelcome(): React.ReactElement {
   const [relationshipType, setRelationshipType] = useState("Dating");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState(() => 
+    localStorage.getItem('profileImage') || "/temiloluwa.svg"
+  );
 
   const relationshipTypes = ["Dating", "Single"];
 
@@ -18,16 +21,32 @@ export default function ProfileWelcome(): React.ReactElement {
     setIsDropdownOpen(false);
   };
 
+  useEffect(() => {
+    const handleProfileImageUpdate = () => {
+      const storedProfileImage = localStorage.getItem('profileImage');
+      if (storedProfileImage) {
+        setProfileImage(storedProfileImage);
+      }
+    };
+
+    // Listen for custom event from other components
+    window.addEventListener('profileImageUpdated', handleProfileImageUpdate);
+
+    return () => {
+      window.removeEventListener('profileImageUpdated', handleProfileImageUpdate);
+    };
+  }, []);
+
   return (
     <div className="lg:flex items-center space-x-4 w-full block">
       <div className="flex flex-col items-center lg:hidden mb-6">
         <div className="relative mb-4">
           <Image
-            src={"/temiloluwa.svg"}
+            src={profileImage}
             alt="Profile"
             width={120}
             height={120}
-            className="rounded-full"
+            className="rounded-full w-[150px] h-[150px]"
           />
         </div>
 
@@ -83,11 +102,11 @@ export default function ProfileWelcome(): React.ReactElement {
       {/* Desktop View */}
       <div className="relative hidden lg:block">
         <Image
-          src={"/temiloluwa.svg"}
+          src={profileImage}
           alt="Profile"
           width={160}
           height={100}
-          className="rounded-full"
+          className="rounded-full w-[10rem] h-[10rem]"
         />
       </div>
       <div className="hidden lg:flex gap-[10rem]">

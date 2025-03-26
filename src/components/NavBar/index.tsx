@@ -1,10 +1,17 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { FaSearch, FaFilter } from "react-icons/fa";
 import Image from "next/image";
 
 export default function Navbar(): React.ReactNode {
+  const router = useRouter();
+
+  const handleProfileClick = () => {
+    router.push("/profile");
+  };
+
   return (
     <nav className="bg-[#F6F6F6] shadow-md fixed w-full z-50 top-0">
       <div className="px-4 sm:px-6 lg:px-10 xxl:pl-12 xxl:pr-36">
@@ -16,8 +23,8 @@ export default function Navbar(): React.ReactNode {
                   <Image
                     src={"/chuly-logo.svg"}
                     alt="Logo"
-                    width={85}
-                    height={85}
+                    width={70}
+                    height={70}
                     className="hover:scale-110 transition-transform duration-300 py-3"
                   />
                   <span className="lg:text-3xl pr-8 text-xl font-bold font-jaini-purva">
@@ -60,17 +67,18 @@ export default function Navbar(): React.ReactNode {
               <Image
                 src={"/Alarm.svg"}
                 alt="Profile"
-                width={30}
-                height={20}
+                width={26}
+                height={26}
                 className="rounded-full hover:scale-110 transition-transform duration-300"
               />
             </div>
             <Image
               src={"/temiloluwa.svg"}
               alt="Profile"
-              width={60}
-              height={60}
-              className="rounded-full hover:scale-110 transition-transform duration-300"
+              width={50}
+              height={50}
+              className="rounded-full hover:scale-110 transition-transform duration-300 cursor-pointer"
+              onClick={handleProfileClick}
             />
           </div>
 
@@ -90,7 +98,8 @@ export default function Navbar(): React.ReactNode {
                 alt="Profile"
                 width={35}
                 height={20}
-                className="rounded-full hover:scale-110 transition-transform duration-300"
+                className="rounded-full hover:scale-110 transition-transform duration-300 cursor-pointer"
+                onClick={handleProfileClick}
               />
             </div>
           </div>

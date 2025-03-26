@@ -1,11 +1,9 @@
 "use client";
 
 import React from "react";
-import ProfileWelcome from "@/components/ProfileWelcome";
-import DatingProfileGrid from "@/components/DatingProfileGrid";
 import ProfileMenu from "@/components/ProfileMenu";
 
-export default function Home() {
+export default function Profile() {
   return (
     <div className="px-4 sm:px-6 lg:px-10 xxl:pl-12 xxl:pr-36">
       <div className="lg:pt-24 pt-10 flex flex-col lg:flex-row">
@@ -13,12 +11,7 @@ export default function Home() {
           <ProfileMenu />
         </div>
         <div className="flex-grow lg:ml-24">
-          <div>
-            <ProfileWelcome />
-          </div>
-          <div className="mt-10">
-            <DatingProfileGrid />
-          </div>
+          Profile page
         </div>
       </div>
     </div>

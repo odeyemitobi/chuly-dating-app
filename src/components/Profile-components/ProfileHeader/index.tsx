@@ -51,7 +51,6 @@ export default function ProfileHeader() {
 
   return (
     <div className="relative w-full">
-      {/* Cover Section - Same for both mobile and desktop */}
       <div className="relative w-full h-[250px]">
         <Image 
           src={coverImage} 

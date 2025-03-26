@@ -92,7 +92,6 @@ const ProfileMenu = () => {
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* Menu Trigger Button */}
       <div className="block cursor-pointer z-50" onClick={toggleMenu}>
         <MdMenu size={30} />
       </div>

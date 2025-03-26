@@ -47,7 +47,6 @@ const AboutMeItem: React.FC<AboutMeItemProps> = ({
 const ProfileDetails: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {/* My Hobbies Section */}
       <div className="bg-white p-4 lg:p-6 rounded-lg border">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">My Hobbies</h2>
@@ -61,7 +60,6 @@ const ProfileDetails: React.FC = () => {
           ))}
         </div>
       </div>
-      {/* My Interests Section */}
       <div className="bg-white p-4 lg:p-6 rounded-lg border">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">My Interest</h2>
@@ -75,7 +73,6 @@ const ProfileDetails: React.FC = () => {
           ))}
         </div>
       </div>
-      {/* About Me Section */}
       <div className="bg-white p-6 rounded-lg border">
         <h2 className="text-xl font-semibold mb-4">About Me</h2>
         <div className="space-y-3">

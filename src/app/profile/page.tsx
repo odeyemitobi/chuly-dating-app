@@ -4,6 +4,7 @@ import React from "react";
 import ProfileMenu from "@/components/ProfileMenu";
 import ProfileHeader from "@/components/Profile-components/ProfileHeader";
 import ProfilePhotoUpload from "@/components/Profile-components/ProfilePhotoUpload";
+import ProfileDetails from "@/components/Profile-components/ProfileDetails";
 
 export default function Profile() {
   return (
@@ -18,6 +19,9 @@ export default function Profile() {
           </div>
           <div className="lg:mt-32 mt-5">
             <ProfilePhotoUpload />
+          </div>
+          <div className="lg:my-10 my-5">
+            <ProfileDetails />
           </div>
         </div>
       </div>

@@ -87,7 +87,7 @@ const ProfileCard = ({ profile }: { profile: Profile }) => {
 
 export default function DatingProfileGrid(): React.ReactElement {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 maxLg:grid-cols-5 gap-4 p-4">
       {profiles.map((profile) => (
         <ProfileCard key={profile.id} profile={profile} />
       ))}
